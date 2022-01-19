@@ -7,7 +7,7 @@ The information here does not replace official Microsoft or Red Hat documentatio
 As a rule, settings or configurations will be provided to accelerate ATO (Authority to Operate) approvals for Canadian Government PBMM, and so certain configurations will not be emphasized, such as abundant public IP interfaces, Azure resources not available in Canada, etc.
 In general, ARO deployment goals include:
 
-- ARO private cluster config (avoid public endpoints, IPs if possible)
+- ARO private cluster config (avoid public endpoints and IPs as much as possible)
 - Accelerate ATO for PBMM with technical controls
 
 ## Installation
@@ -15,13 +15,20 @@ In general, ARO deployment goals include:
 After deploying the Azure Landing Zone for PubSec, and creating a generic landing zone subscription, the following steps were done to deploy ARO.
 
 1. Register the Azure ARO resource provider:
+
 `az provider register -n Microsoft.RedHatOpenShift --wait`
 1. Policy Assignment Changes
     - Created exclusion for "Custom - Required tags on resource group" policy on the landing zone subscription. This allows ARO to create a managed resource group.
 
+1. ARO install was done via Azure CLI for ease of testing, future efforts will include ARM or Bicep resources.
+
+`az aro create --resource-group $RESOURCEGROUP --name $CLUSTER --vnet <aro-vnet> --vnet-resource-group <vnet rg> --master-subnet <master-subnet> --worker-subnet <worker-subnet>`
+
 ### Custom Domain
 
-The ability to assign a custom domain to the ARO installation is key for most customers, but the installation can proceed without it. Validation of the custom domain requires DNS records to be created for API, etc.
+The ability to assign a custom domain to the ARO installation is key for most customers, but the installation can proceed without it.
+
+Validation of the custom domain requires DNS records to be created for API, etc.
 
 ### Red Hat Pull Secret
 
