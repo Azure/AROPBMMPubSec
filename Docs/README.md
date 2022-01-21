@@ -16,13 +16,16 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
 
 1. Register the Azure ARO resource provider:
 
-`az provider register -n Microsoft.RedHatOpenShift --wait`
+    `az provider register -n Microsoft.RedHatOpenShift --wait`
+
 1. Policy Assignment Changes
     - Created exclusion for "Custom - Required tags on resource group" policy on the landing zone subscription. This allows ARO to create a managed resource group.
 
 1. ARO install was done via Azure CLI for ease of testing, future efforts will include ARM or Bicep resources.
 
-`az aro create --resource-group $RESOURCEGROUP --name $CLUSTER --vnet <aro-vnet> --vnet-resource-group <vnet rg> --master-subnet <master-subnet> --worker-subnet <worker-subnet>`
+    `az aro create --resource-group $RESOURCEGROUP --name $CLUSTER --vnet <aro-vnet> --vnet-resource-group <vnet rg> --master-subnet <master-subnet> --worker-subnet <worker-subnet>`
+
+1. Configure the cluster to use Azure AD for authentication, as per [Configure Azure AD auth for Openshift 4](https://docs.microsoft.com/en-us/azure/openshift/configure-azure-ad-ui)
 
 ### Custom Domain
 
@@ -60,3 +63,12 @@ Adding API server certificates - Configuring certificates | Security and complia
 
 see Set up Azure Arc for App Service, Functions, and Logic Apps - Azure App Service | Microsoft Docs
 Azure AD integration for cluster management plane
+
+
+_5k7Q~Dfwu1tzkObaLUgIUnbzAFaCwRY4623p
+
+appid
+61f63ca7-f2f5-4f46-bcbe-ea5f6e48cfcf
+
+tenantid
+a28be6ed-d1db-4c96-be8d-5702c79bc10e
