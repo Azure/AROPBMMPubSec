@@ -23,7 +23,17 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
 
 1. ARO install was done via Azure CLI for ease of testing, future efforts will include ARM or Bicep resources.
 
-    `az aro create --resource-group $RESOURCEGROUP --name $CLUSTER --vnet <aro-vnet> --vnet-resource-group <vnet rg> --master-subnet <master-subnet> --worker-subnet <worker-subnet>`
+    ```
+    az aro create \
+         --resource-group $RESOURCEGROUP \
+         --name $CLUSTER \
+         --vnet <aro-vnet> \
+         --vnet-resource-group <vnet rg> \
+         --master-subnet <master-subnet> \
+         --worker-subnet <worker-subnet> \
+         --domain <base cluster domain> \
+         --pull-secret @pullsecret.txt
+    ```
 
 1. Configure the cluster to use Azure AD for authentication, as per [Configure Azure AD auth for Openshift 4](https://docs.microsoft.com/en-us/azure/openshift/configure-azure-ad-ui)
 
