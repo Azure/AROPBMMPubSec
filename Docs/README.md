@@ -74,7 +74,7 @@ Connect ARO to the main Log Analytics workspace using Azure Arc. From the manage
 
     `az aro list-credentials --name <clustername> --resource-group <rgname>`
 
-    `oc login <apiserverurl> -u kubeadmin -p <kubeadmin password>
+    `oc login <apiserverurl> -u kubeadmin -p <kubeadmin password>`
 
 1. Add a user policy for Azure Arc.
 
@@ -86,7 +86,7 @@ Connect ARO to the main Log Analytics workspace using Azure Arc. From the manage
     `aroRG=<ARO rg name>`
     `az connectedk8s connect -n $aroCluster -g $aroRG --only-show-errors -o jsonc --location eastus`
 
-    Note that Azure Arc is not currently available in Canadian regions (as of Jan 2022). Azure Arc persists a small amount of metadata in the region it is provisioned in, but no customer data.
+    Note that Azure Arc is not currently available in Canadian regions (as of Jan 2022). Azure Arc persists a small amount of metadata about resources in the region it is provisioned in, but no customer data. See [here](https://docs.microsoft.com/en-us/azure/azure-arc/servers/agent-overview#instance-metadata) for more info.
 
 1. Finally, enable log collection to Log Analytics already created in the core.  
 
