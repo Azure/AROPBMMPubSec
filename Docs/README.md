@@ -34,6 +34,7 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
 
 1. Policy Assignment Changes
     - Created exclusion for "Custom - Required tags on resource group" policy on the landing zone subscription. This allows ARO to create a managed resource group.
+    - Remove region requirement so that Azure Arc instance can be deployed (req until Arc is available in Canada)
 
 1. Landing zone network changes
     - The default landing zone network must not have NSGs attached to the subnets used by ARO, remove them.
@@ -88,7 +89,7 @@ Connect ARO to the main Log Analytics workspace using Azure Arc. From the manage
 
     Note that Azure Arc is not currently available in Canadian regions (as of Jan 2022). Azure Arc persists a small amount of metadata about resources in the region it is provisioned in, but no customer data. See [here](https://docs.microsoft.com/en-us/azure/azure-arc/servers/agent-overview#instance-metadata) for more info.
 
-1. Finally, enable log collection to Log Analytics already created in the core.  
+1. Finally, enable log collection to Log Analytics workspace already created in the core.  
 
     Locate or derive the resource id for the workspace.
     `LAWORKSPACEID="<workspace resource id>"`
