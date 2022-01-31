@@ -53,6 +53,10 @@ To allow admins and developers to access the cluster using Azure AD accounts, fo
 
 ## Platform Logging
 
+Several options exist for ARO logging. Azure Arc can be used to collect logs and capture them in the central Log Analytics workspace.
+
+### Azure Arc for ARO
+
 Connect ARO to the main Log Analytics workspace using Azure Arc. From the management VM, run the following commands. Note that the AZ cli commands here are formatted for Linux, so if the VM is Windows run from a WSL install for ease of use.
 
 1. Add AZ CLI extensions.
@@ -109,8 +113,9 @@ Suggested changes for this network could be:
 
 ### Firewall
 
-Azure Firewall rule changes for ARO deployments:
-operations VM rules for downloads, etc.
+Eventually will adopt this guidance: [Control egress traffic for ARO](https://docs.microsoft.com/en-us/azure/openshift/howto-restrict-egress)
+
+For now: allowing all outbound traffic to Internet for ARO nodes, and allowing bidirectional TCP 6443 between ARO clusters for management.
 
 ### Application Presentation
 
