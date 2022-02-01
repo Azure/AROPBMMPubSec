@@ -10,6 +10,10 @@ In general, ARO deployment goals include:
 - ARO private cluster config (avoid public endpoints and IPs as much as possible)
 - Accelerate ATO for PBMM with technical controls
 
+## Before You Begin
+
+In order to have access to the catalog of Red Hat container images and OperatorHub, you should be sure to include the "pull secret" associated with your organizational Red Hat account.  You can download your "pull secret" from the [Red Hat cloud console](https://cloud.redhat.com/openshift/install/pull-secret).  Once you have this file, keep it handy for when you run the `az` command to deploy your clusters.
+
 ### Custom Domain
 
 The ability to assign a custom domain to the ARO installation is key for most customers, but the installation can proceed without it.
@@ -43,7 +47,17 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
 
 1. ARO install was done via Azure CLI for ease of testing, future efforts will include ARM or Bicep resources.
 
-    `az aro create --resource-group $RESOURCEGROUP --name $CLUSTER --vnet <aro-vnet> --vnet-resource-group <vnet rg> --master-subnet <master-subnet> --worker-subnet <worker-subnet> --pull-secret @pull-secret.txt`
+    ```
+    az aro create \
+         --resource-group $RESOURCEGROUP \
+         --name $CLUSTER \
+         --vnet <aro-vnet> \
+         --vnet-resource-group <vnet rg> \
+         --master-subnet <master-subnet> \
+         --worker-subnet <worker-subnet> \
+         --domain <base cluster domain> \
+         --pull-secret @pullsecret.txt
+    ```
 
 ## Azure AD Integration
 
@@ -101,6 +115,7 @@ Connect ARO to the main Log Analytics workspace using Azure Arc. From the manage
     `az k8s-extension create -n azuremonitor-containers -c $aroCluster -g $aroRG -t connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=$LAWORKSPACEID --only-show-errors -o jsonc`
 
 Logs will start to flow to the workspace in a short while.
+
 
 ### Networking
 
