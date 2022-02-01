@@ -10,6 +10,10 @@ In general, ARO deployment goals include:
 - ARO private cluster config (avoid public endpoints and IPs as much as possible)
 - Accelerate ATO for PBMM with technical controls
 
+## Before You Begin
+
+In order to have access to the catalog of Red Hat container images and OperatorHub, you should be sure to include the "pull secret" associated with your organizational Red Hat account.  You can download your "pull secret" from the [Red Hat cloud console](https://cloud.redhat.com/openshift/install/pull-secret).  Once you have this file, keep it handy for when you run the `az` command to deploy your clusters.
+
 ## Installation
 
 After deploying the Azure Landing Zone for PubSec, and creating a generic landing zone subscription, the following steps were done to deploy ARO.
@@ -42,10 +46,6 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
 The ability to assign a custom domain to the ARO installation is key for most customers, but the installation can proceed without it.
 
 Validation of the custom domain requires DNS records to be created for API, etc.
-
-### Red Hat Pull Secret
-
-Automation of this will not be possible, but it is a pre-req.
 
 ### Networking
 
