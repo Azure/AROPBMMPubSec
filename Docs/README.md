@@ -10,54 +10,16 @@ In general, ARO deployment goals include:
 - ARO private cluster config (avoid public endpoints and IPs as much as possible)
 - Accelerate ATO for PBMM with technical controls
 
-## Before You Begin
+This guide is composed of the following sections:
 
-In order to have access to the catalog of Red Hat container images and OperatorHub, you should be sure to include the "pull secret" associated with your organizational Red Hat account.  You can download your "pull secret" from the [Red Hat cloud console](https://cloud.redhat.com/openshift/install/pull-secret).  Once you have this file, keep it handy for when you run the `az` command to deploy your clusters.
+1. [Before You Begin - Prerequisites](01-before-you-begin.md)
+2. Installation
+3. Installing Custom Ingress and API Certificates
+4. Configuring Azure AD for Authentication
+5. Managing Cluster Admins
+6. Cluster and Application Logging
+7. Compliance Scanning and Reporting
 
-### Custom Domain
-
-The ability to assign a custom domain to the ARO installation is key for most customers, but the installation can proceed without it.
-
-Validation of the custom domain requires DNS records to be created for API, etc.
-
-### Red Hat Pull Secret
-
-Automation of this will not be possible, but it is a pre-req.  Of particular note if the install is using a Windows machine, ensure that the pull secret file is using "LF" format and not "CRLF" as is common for Windows.
-
-### Management Options
-
-The ARO cluster is created as a private cluster, meaning the admin and management interfaces are only available from the VNet in the subscription.  Create a VM (Linux or Windows) in the landing zone to complete the configuration of the cluster.  Install the OC command line tools.
-
-## Installation
-
-After deploying the Azure Landing Zone for PubSec, and creating a generic landing zone subscription, the following steps were done to deploy ARO.
-
-1. Register the Azure ARO resource provider:
-
-    `az provider register -n Microsoft.RedHatOpenShift --wait`
-
-1. Policy Assignment Changes
-    - Created exclusion for "Custom - Required tags on resource group" policy on the landing zone subscription. This allows ARO to create a managed resource group.
-    - Remove region requirement so that Azure Arc instance can be deployed (req until Arc is available in Canada)
-
-1. Landing zone network changes
-    - The default landing zone network must not have NSGs attached to the subnets used by ARO, remove them.
-    - The route tables also must either be removed, or the firewall rules must be adjusted (final rules not yet tested for this).
-    - The Oz and Rz subnets were used for master and worker, respectively.
-
-1. ARO install was done via Azure CLI for ease of testing, future efforts will include ARM or Bicep resources.
-
-    ```
-    az aro create \
-         --resource-group $RESOURCEGROUP \
-         --name $CLUSTER \
-         --vnet <aro-vnet> \
-         --vnet-resource-group <vnet rg> \
-         --master-subnet <master-subnet> \
-         --worker-subnet <worker-subnet> \
-         --domain <base cluster domain> \
-         --pull-secret @pullsecret.txt
-    ```
 
 ## Azure AD Integration
 
@@ -73,13 +35,13 @@ Several options exist for platform logging and application logging in and OpenSh
 
 * OpenShift Log Forwarding: This also uses the fully supported *OpenShift Cluster Logging* stack, but instead of deploying Elasticsearch, the logging stack is configured to forward logs to an external log aggregation sync, such as Elasticsearch, Azure Log Analytics, Splunk, etc...
 
-* Azure Arc can be used to collect logs and capture them in the central Log Analytics workspace.
+* Azure Arc can be used to collect logs and capture them in the central Log Analytics workspace.  Arc is an Azure service that will incur additional charges based on cluster size.
 
 ### OpenShift Cluster Logging - Full EFK Stack
 
 OpenShift Cluster Logging is installed as a "Day 2" task using the [OpenShift Logging Operator](https://docs.openshift.com/container-platform/4.9/logging/cluster-logging-deploying.html).  For high availability logging, this will deploy Elasticsearch across three nodes, as well as FluentD collectors on each node, and Kibana (fully integrated with OpenShift OAuth) for log search.
 
-Ensure you have capacity to deploy OpenShift Logging in your cluster, as Elasticsearch requires 16GB memory instance minimum.
+Ensure you have capacity to deploy OpenShift Logging in your cluster, as Elasticsearch requires a minimum of 16GB memory per instance.
 
 ### OpenShift Cluster Logging - Log Forwarding
 
@@ -155,8 +117,8 @@ For now: allowing all outbound traffic to Internet for ARO nodes, and allowing b
 ### Application Presentation
 
 Certificates for internal/external situations
-ref: Replacing the default ingress certificate - Configuring certificates | Security and compliance | OpenShift Container Platform 4.6
-Adding API server certificates - Configuring certificates | Security and compliance | OpenShift Container Platform 4.6
+ref: Replacing the default ingress certificate - Configuring certificates | Security and compliance | OpenShift Container Platform 4.9
+Adding API server certificates - Configuring certificates | Security and compliance | OpenShift Container Platform 4.9
 
 ## Management and Operations
 
