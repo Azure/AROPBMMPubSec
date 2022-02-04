@@ -19,7 +19,7 @@ This guide is composed of the following sections:
 5. [Platform and Application Logging](05-platform-and-app-logging.md)
 6. Managing Cluster Admins
 7. Cluster and Application Logging
-8. Compliance Scanning and Reporting
+8. [Compliance Scanning and Reporting](08-compliance-scanning.md)
 
 
 ### Networking
