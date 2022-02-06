@@ -1,5 +1,25 @@
 # Installation
 
+## Considerations Before Installation
+
+### Networking
+
+The Generic Subscription archetype has a VNet created already, which will be used for ARO. (basic reference here: [Concepts - Networking diagram for Azure Red Hat on OpenShift 4 | Microsoft Docs](https://docs.microsoft.com/en-us/azure/openshift/concepts-networking#whats-new-in-openshift-45))
+
+Suggested changes for this network could be:
+
+- renaming subnets for clarity (Pod, Service)
+- right size for CIDRs?
+
+### Firewall
+
+Eventually will adopt this guidance: [Control egress traffic for ARO](https://docs.microsoft.com/en-us/azure/openshift/howto-restrict-egress)
+
+For now: allowing all outbound traffic to Internet for ARO nodes, and allowing bidirectional TCP 6443 between ARO clusters for management.
+
+
+## Install
+
 After deploying the Azure Landing Zone for PubSec, and creating a generic landing zone subscription, the following steps were done to deploy ARO.
 
 1. Register the Azure ARO resource provider:
@@ -28,3 +48,7 @@ After deploying the Azure Landing Zone for PubSec, and creating a generic landin
          --domain <base cluster domain> \
          --pull-secret @pullsecret.txt
     ```
+
+[NEXT: Custom Certificates](03-custom-certificates.md)
+---
+[Back to the Table of Contents](README.md)

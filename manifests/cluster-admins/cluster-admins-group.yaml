@@ -1,0 +1,7 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: department-cluster-admins
+users:
+  - user1
+  - user2

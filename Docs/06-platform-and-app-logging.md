@@ -68,3 +68,7 @@ Connect Azure Red Hat OpenShift to the main Log Analytics workspace using Azure 
     `az k8s-extension create -n azuremonitor-containers -c $aroCluster -g $aroRG -t connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=$LAWORKSPACEID --only-show-errors -o jsonc`
 
 Logs will start to flow to the workspace in a short while.
+
+[NEXT: Application Monitoring](07-app-monitoring.md)
+---
+[Back to the Table of Contents](README.md)
