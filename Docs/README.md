@@ -1,6 +1,6 @@
 # Documentation of the Solution
 
-The information here does not replace official Microsoft or Red Hat documentation, but is intended to offer guidance for specific areas of configuration or controls.
+The information here does not replace official Microsoft or [Red Hat documentation](https://docs.openshift.com/aro/4/welcome/index.html), but is intended to offer guidance for specific areas of configuration or controls.
 
 ## General Guidelines
 
